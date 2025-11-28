@@ -1,0 +1,5 @@
+{
+  "name": "SEC EDGAR ScriptGen",
+  "description": "A developer tool that generates compliant Python scripts for interacting with the SEC EDGAR API. It utilizes Google's Gemini Flash model to create custom scripts based on specific data needs and handles the strict User-Agent formatting required by the SEC.",
+  "requestFramePermissions": []
+}
