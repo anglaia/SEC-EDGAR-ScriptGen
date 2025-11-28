@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai'
 
 // 从环境变量获取API密钥（安全地保存在后端）
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
@@ -41,14 +41,14 @@ export async function POST(request: NextRequest) {
       generationConfig: {
         responseMimeType: "application/json",
         responseSchema: {
-          type: "object",
+          type: SchemaType.OBJECT,
           properties: {
             code: {
-              type: "string",
+              type: SchemaType.STRING,
               description: "完整的Python脚本代码"
             },
             explanation: {
-              type: "string",
+              type: SchemaType.STRING,
               description: "脚本工作原理的简要说明"
             }
           },
