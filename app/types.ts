@@ -1,7 +1,7 @@
 export interface ScriptConfig {
   developerName: string;
   developerEmail: string;
-  targetData: string; // e.g., "Apple 10-K filings", "Tesla Company Facts"
+  targetData: string;
 }
 
 export interface GeneratedScript {
@@ -15,3 +15,4 @@ export enum LoadingState {
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR'
 }
+

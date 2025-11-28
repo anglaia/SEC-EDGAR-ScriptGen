@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
-import { ScriptConfig, LoadingState } from '../types';
-import { Terminal, Mail, User, Search, Play } from 'lucide-react';
+'use client'
+
+import { useState } from 'react'
+import { ScriptConfig, LoadingState } from '../types'
+import { Terminal, Mail, User, Search, Play } from 'lucide-react'
 
 interface ConfigFormProps {
-  onGenerate: (config: ScriptConfig) => void;
-  loadingState: LoadingState;
+  onGenerate: (config: ScriptConfig) => void
+  loadingState: LoadingState
 }
 
-const ConfigForm: React.FC<ConfigFormProps> = ({ onGenerate, loadingState }) => {
-  const [developerName, setDeveloperName] = useState('Sample Corp');
-  const [developerEmail, setDeveloperEmail] = useState('admin@sample.com');
-  const [targetData, setTargetData] = useState('Latest 10-K filing for Apple Inc (AAPL)');
+export default function ConfigForm({ onGenerate, loadingState }: ConfigFormProps) {
+  const [developerName, setDeveloperName] = useState('示例公司')
+  const [developerEmail, setDeveloperEmail] = useState('admin@sample.com')
+  const [targetData, setTargetData] = useState('获取苹果公司 (AAPL) 的最新10-K报告')
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onGenerate({ developerName, developerEmail, targetData });
-  };
+    e.preventDefault()
+    onGenerate({ developerName, developerEmail, targetData })
+  }
 
-  const isLoading = loadingState === LoadingState.LOADING;
+  const isLoading = loadingState === LoadingState.LOADING
 
   return (
     <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 shadow-xl backdrop-blur-sm">
       <div className="flex items-center gap-3 mb-6 text-emerald-400">
         <Terminal className="w-6 h-6" />
-        <h2 className="text-xl font-semibold text-white">Script Configuration</h2>
+        <h2 className="text-xl font-semibold text-white">脚本配置</h2>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">
@@ -33,17 +35,17 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onGenerate, loadingState }) => 
           <div className="bg-blue-900/20 border border-blue-800/50 p-4 rounded-lg">
             <h3 className="text-sm font-medium text-blue-300 mb-2 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-              SEC Identity Requirement
+              SEC身份要求
             </h3>
             <p className="text-xs text-slate-400 mb-4">
-              The SEC blocks requests without a valid User-Agent string in the format: 
-              <code className="bg-slate-900 px-1 py-0.5 rounded mx-1 text-slate-300">Name email@address.com</code>
+              SEC会阻止没有有效User-Agent字符串的请求，格式为：
+              <code className="bg-slate-900 px-1 py-0.5 rounded mx-1 text-slate-300">姓名 email@address.com</code>
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1">
                 <label className="text-xs font-medium text-slate-400 flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5" /> Developer / Company Name
+                  <User className="w-3.5 h-3.5" /> 开发者/公司名称
                 </label>
                 <input
                   type="text"
@@ -51,13 +53,13 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onGenerate, loadingState }) => 
                   value={developerName}
                   onChange={(e) => setDeveloperName(e.target.value)}
                   className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
-                  placeholder="e.g. John Doe"
+                  placeholder="例如：张三"
                 />
               </div>
 
               <div className="space-y-1">
                 <label className="text-xs font-medium text-slate-400 flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5" /> Contact Email
+                  <Mail className="w-3.5 h-3.5" /> 联系邮箱
                 </label>
                 <input
                   type="email"
@@ -65,7 +67,7 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onGenerate, loadingState }) => 
                   value={developerEmail}
                   onChange={(e) => setDeveloperEmail(e.target.value)}
                   className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
-                  placeholder="e.g. john@example.com"
+                  placeholder="例如：john@example.com"
                 />
               </div>
             </div>
@@ -75,7 +77,7 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onGenerate, loadingState }) => 
         {/* Target Data Section */}
         <div className="space-y-1">
           <label className="text-xs font-medium text-slate-400 flex items-center gap-1.5">
-            <Search className="w-3.5 h-3.5" /> What data do you need?
+            <Search className="w-3.5 h-3.5" /> 您需要什么数据？
           </label>
           <textarea
             required
@@ -83,7 +85,7 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onGenerate, loadingState }) => 
             value={targetData}
             onChange={(e) => setTargetData(e.target.value)}
             className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all resize-none"
-            placeholder="Describe the data you want to fetch. e.g. 'Get all company facts for Microsoft' or 'Download latest 10-Q for Tesla'"
+            placeholder="描述您想要获取的数据。例如：'获取微软的所有公司财务数据' 或 '下载特斯拉的最新10-Q报告'"
           />
         </div>
 
@@ -102,18 +104,17 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onGenerate, loadingState }) => 
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Generating Script...
+              正在生成脚本...
             </>
           ) : (
             <>
               <Play className="w-4 h-4 fill-current" />
-              Generate Python Script
+              生成Python脚本
             </>
           )}
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default ConfigForm;
